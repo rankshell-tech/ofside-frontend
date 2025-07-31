@@ -3,9 +3,13 @@
 import React, { useState } from 'react';
 import Header from '@/components/layout/Header';
 import { Upload, X, Plus, MapPin, Phone, Mail, User, Building, Camera, Clock, DollarSign, ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { useRef } from 'react';
+
 
 export default function VenueOnboardingPage() {
   const [currentStep, setCurrentStep] = useState(0);
+  const rightRef = useRef<HTMLDivElement>(null);
+
   const [formData, setFormData] = useState({
     // Basic Details
     venueName: '',
@@ -13,7 +17,7 @@ export default function VenueOnboardingPage() {
     sportsOffered: [] as string[],
     description: '',
     venueLogo: null as File | null,
-    
+
     // Address & Contact
     fullAddress: '',
     city: '',
@@ -24,13 +28,13 @@ export default function VenueOnboardingPage() {
     contactPersonName: '',
     contactPhone: '',
     contactEmail: '',
-    
+
     // Amenities
     amenities: [] as string[],
-    
+
     // Gallery
     galleryImages: [] as File[],
-    
+
     // Court Details
     courtName: '',
     courtSportType: '',
@@ -38,7 +42,7 @@ export default function VenueOnboardingPage() {
     courtSize: '',
     isIndoor: false,
     hasLighting: false,
-    
+
     // Pricing & Availability
     slotDuration: '',
     pricePerSlot: '',
@@ -87,13 +91,13 @@ export default function VenueOnboardingPage() {
 
   const handleFileUpload = (field: string, files: FileList | null) => {
     if (!files) return;
-    
+
     if (field === 'venueLogo') {
       setFormData(prev => ({ ...prev, venueLogo: files[0] }));
     } else if (field === 'galleryImages') {
-      setFormData(prev => ({ 
-        ...prev, 
-        galleryImages: [...prev.galleryImages, ...Array.from(files)] 
+      setFormData(prev => ({
+        ...prev,
+        galleryImages: [...prev.galleryImages, ...Array.from(files)]
       }));
     }
   };
@@ -106,6 +110,7 @@ export default function VenueOnboardingPage() {
   };
 
   const nextStep = () => {
+    rightRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -164,7 +169,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Venue Type *
@@ -181,7 +186,7 @@ export default function VenueOnboardingPage() {
                   ))}
                 </select>
               </div>
-              
+
               <div className="lg:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Sports Offered *
@@ -200,7 +205,7 @@ export default function VenueOnboardingPage() {
                   ))}
                 </div>
               </div>
-              
+
               <div className="lg:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Description *
@@ -214,7 +219,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div className="lg:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Venue Logo
@@ -258,7 +263,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   City *
@@ -272,7 +277,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   State *
@@ -286,7 +291,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Pincode *
@@ -300,7 +305,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Latitude
@@ -313,7 +318,7 @@ export default function VenueOnboardingPage() {
                   placeholder="e.g., 19.0760"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Longitude
@@ -326,7 +331,7 @@ export default function VenueOnboardingPage() {
                   placeholder="e.g., 72.8777"
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Contact Person Name *
@@ -343,7 +348,7 @@ export default function VenueOnboardingPage() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Phone Number *
@@ -360,7 +365,7 @@ export default function VenueOnboardingPage() {
                   />
                 </div>
               </div>
-              
+
               <div className="lg:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Email Address *
@@ -418,7 +423,7 @@ export default function VenueOnboardingPage() {
                 Choose Images
               </label>
             </div>
-            
+
             {formData.galleryImages.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {formData.galleryImages.map((file, index) => (
@@ -459,7 +464,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Sport Type *
@@ -476,7 +481,7 @@ export default function VenueOnboardingPage() {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Surface Type *
@@ -493,7 +498,7 @@ export default function VenueOnboardingPage() {
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Court Size
@@ -506,7 +511,7 @@ export default function VenueOnboardingPage() {
                   placeholder="e.g., 100x60 feet, Standard size"
                 />
               </div>
-              
+
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
                 <span className="text-sm font-semibold text-gray-700">Indoor Venue</span>
                 <label className="relative inline-flex items-center cursor-pointer">
@@ -519,7 +524,7 @@ export default function VenueOnboardingPage() {
                   <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
                 </label>
               </div>
-              
+
               <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
                 <span className="text-sm font-semibold text-gray-700">Lighting Available</span>
                 <label className="relative inline-flex items-center cursor-pointer">
@@ -556,7 +561,7 @@ export default function VenueOnboardingPage() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Price Per Slot (₹) *
@@ -573,7 +578,7 @@ export default function VenueOnboardingPage() {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Start Time *
@@ -586,7 +591,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   End Time *
@@ -599,7 +604,7 @@ export default function VenueOnboardingPage() {
                   required
                 />
               </div>
-              
+
               <div className="lg:col-span-2">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                   Available Days *
@@ -628,125 +633,132 @@ export default function VenueOnboardingPage() {
   };
 
   return (
+    <div className="h-screen overflow-hidden flex">
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
-      
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#ffe100] to-[#ffed4e] rounded-2xl mb-6 shadow-lg">
-            <Building className="w-10 h-10 text-black" />
+      <div className="flex h-screen p-2">
+        <div className="w-1/3 p-6" style={{background: "var(--color-theme-primary-light)"}}>
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            {/* Header */}
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-[#ffe100] to-[#ffed4e] rounded-2xl mb-6 shadow-lg">
+                <Building className="w-10 h-10 text-black" />
+              </div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">List Your Sports Venue</h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Join thousands of venue owners and start earning by listing your sports facility on Ofside
+              </p>
+            </div>
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">List Your Sports Venue</h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join thousands of venue owners and start earning by listing your sports facility on Ofside
-          </p>
         </div>
 
         {/* Progress Indicator */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-4">
-            {steps.map((step, index) => (
-              <div key={index} className="flex items-center">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 ${
-                  index < currentStep 
-                    ? 'bg-green-500 border-green-500 text-white' 
-                    : index === currentStep 
-                    ? `bg-gradient-to-r ${step.color} border-transparent text-white`
-                    : 'bg-white border-gray-300 text-gray-400'
-                }`}>
-                  {index < currentStep ? (
-                    <Check className="w-5 h-5" />
+        <div className="w-2/3 bg-gray-100 overflow-y-auto p-6" ref={rightRef}>
+          <div className="mb-12">
+              <div className="flex items-center justify-between w-full mb-4">
+                {steps.map((step, index) => (
+                  <div key={index} className="flex items-center">
+                    <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 ${
+                      index < currentStep
+                        ? 'bg-green-500 border-green-500 text-white'
+                        : index === currentStep
+                        ? `bg-gradient-to-r ${step.color} border-transparent text-black`
+                        : 'bg-white border-gray-300 text-gray-400'
+                    }`}>
+                      {index < currentStep ? (
+                        <Check className="w-5 h-5" />
+                      ) : (
+                        <step.icon className="w-5 h-5" />
+                      )}
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div className={`w-[6rem] h-1 mx-2 transition-all duration-300 ${
+                        index < currentStep ? 'bg-green-500' : 'bg-gray-300'
+                      }`} />
+                    )}
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-between text-xs text-gray-600 mb-4">
+                {steps.map((step, index) => (
+                  <span key={index} className="w-24 text-center">
+                    {step.title}
+                  </span>
+                ))}
+              </div>
+              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                {/* Step Header */}
+                <div className={`bg-gradient-to-r ${steps[currentStep].color} px-8 py-6`}>
+                  <h2 className="text-2xl font-bold text-black flex items-center">
+                    {React.createElement(steps[currentStep].icon, { className: "w-6 h-6 mr-3" })}
+                    {steps[currentStep].title}
+                  </h2>
+                </div>
+
+                {/* Step Content */}
+                <div className="p-8 min-h-[400px]">
+                  <div className="transition-all duration-300 ease-in-out">
+                    {renderStepContent()}
+                  </div>
+                </div>
+
+                {/* Navigation Buttons */}
+                <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                  <button
+                    type="button"
+                    onClick={prevStep}
+                    disabled={currentStep === 0}
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                      currentStep === 0
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                    }`}
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                    <span>Back</span>
+                  </button>
+
+                  <div className="text-sm text-gray-500">
+                    Step {currentStep + 1} of {steps.length}
+                  </div>
+
+                  {currentStep === steps.length - 1 ? (
+                    <button
+                      type="button"
+                      onClick={handleSubmit}
+                      className="bg-gradient-to-r from-[#ffe100] to-[#ffed4e] hover:from-[#e6cb00] hover:to-[#e6d43f] text-black font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                    >
+                      <span>Submit for Review</span>
+                      <Check className="w-4 h-4" />
+                    </button>
                   ) : (
-                    <step.icon className="w-5 h-5" />
+                    <button
+                      type="button"
+                      onClick={nextStep}
+                      disabled={!isStepValid(currentStep)}
+                      className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                        isStepValid(currentStep)
+                          ? `bg-gradient-to-r ${steps[currentStep].color} text-white hover:shadow-lg transform hover:scale-105`
+                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   )}
                 </div>
-                {index < steps.length - 1 && (
-                  <div className={`w-16 h-1 mx-2 transition-all duration-300 ${
-                    index < currentStep ? 'bg-green-500' : 'bg-gray-300'
-                  }`} />
-                )}
               </div>
-            ))}
+
+              {/* Help Text */}
+              <div className="text-center mt-8">
+                <p className="text-gray-600">
+                  Your venue will be reviewed within 24-48 hours and you'll be notified via email.
+                </p>
+              </div>
           </div>
-        <div className="flex justify-between text-xs text-gray-600">
-          {steps.map((step, index) => (
-            <span key={index} className="w-24 text-center">
-              {step.title}
-            </span>
-          ))}
-        </div>
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-          {/* Step Header */}
-          <div className={`bg-gradient-to-r ${steps[currentStep].color} px-8 py-6`}>
-            <h2 className="text-2xl font-bold text-white flex items-center">
-              {React.createElement(steps[currentStep].icon, { className: "w-6 h-6 mr-3" })}
-              {steps[currentStep].title}
-            </h2>
-          </div>
-
-          {/* Step Content */}
-          <div className="p-8 min-h-[400px]">
-            <div className="transition-all duration-300 ease-in-out">
-              {renderStepContent()}
-            </div>
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
-            <button
-              type="button"
-              onClick={prevStep}
-              disabled={currentStep === 0}
-              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
-                currentStep === 0
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-              }`}
-            >
-              <ChevronLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
-
-            <div className="text-sm text-gray-500">
-              Step {currentStep + 1} of {steps.length}
-            </div>
-
-            {currentStep === steps.length - 1 ? (
-              <button
-                type="button"
-                onClick={handleSubmit}
-                className="bg-gradient-to-r from-[#ffe100] to-[#ffed4e] hover:from-[#e6cb00] hover:to-[#e6d43f] text-black font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
-              >
-                <span>Submit for Review</span>
-                <Check className="w-4 h-4" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={nextStep}
-                disabled={!isStepValid(currentStep)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
-                  isStepValid(currentStep)
-                    ? `bg-gradient-to-r ${steps[currentStep].color} text-white hover:shadow-lg transform hover:scale-105`
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                <span>Next</span>
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Help Text */}
-        <div className="text-center mt-8">
-          <p className="text-gray-600">
-            Your venue will be reviewed within 24-48 hours and you'll be notified via email.
-          </p>
         </div>
       </div>
     </div>
-       </div>
+    </div>
   );
 }

@@ -1,4 +1,12 @@
 import './globals.css';
+import './global.css';
+import '../components/css/buttons.css';
+import '../components/css/typography.css';
+import '../components/css/variables.css';
+import '../components/css/customForm.css';
+import '../components/css/animations.css';
+import '../components/css/tables.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 

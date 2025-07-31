@@ -3,9 +3,18 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, User, MapPin, Bell } from 'lucide-react';
+import LoginModal from '../loginModal';
+import SignupModal from "../SignupModal";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+
+  const switchToSignup = () => {
+    setIsLoginModalOpen(false);
+    setIsSignupModalOpen(true);
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
@@ -37,12 +46,10 @@ export default function Header() {
             <button className="p-2 text-gray-600 hover:text-black transition-colors">
               <Bell className="w-5 h-5" />
             </button>
-            <Link href="/login" className="btn-secondary">
-              Sign In
-            </Link>
-            <Link href="/signup" className="btn-primary">
-              Sign Up
-            </Link>
+
+            <button className="btn btn-theme-primary" onClick={() => setIsLoginModalOpen(true)}>Sign Up/ Login</button>
+            <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} onSwitchToSignup={switchToSignup}/>
+            <SignupModal isOpen={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}/>
           </div>
 
           {/* Mobile menu button */}

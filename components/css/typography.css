@@ -1,0 +1,10 @@
+body {
+  & p {
+    font-size: 15px;
+  }
+}
+
+label {
+  font-size: 15px;
+  color: var(--text-color-grey-light) !important;
+}
