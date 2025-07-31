@@ -47,7 +47,7 @@ export default function Header() {
               <Bell className="w-5 h-5" />
             </button>
 
-            <button className="btn btn-theme-primary" onClick={() => setIsLoginModalOpen(true)}>Sign Up/ Login</button>
+            <button className="btn btn-primary" onClick={() => setIsLoginModalOpen(true)}>Sign Up/ Login</button>
             <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} onSwitchToSignup={switchToSignup}/>
             <SignupModal isOpen={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}/>
           </div>

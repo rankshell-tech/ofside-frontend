@@ -2,7 +2,8 @@
 
 :root {
   --color-theme-primary: #ffe100;
-  --color-theme-primary-light: lightyellow;
+  --color-theme-primary-light: #fff9cc;
+  --color-theme-primary-dark: #bfa600;
   --color-theme-accent: #e1e6e1;
   --color-grey-dark: #424242;
   --color-grey-light: #929292;
