@@ -633,11 +633,11 @@ export default function VenueOnboardingPage() {
   };
 
   return (
-    <div className="h-screen overflow-hidden flex">
+    <div className="h-screen overflow-hidden flex flex-col lg:flex-row">
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <Header />
       <div className="flex h-screen p-2">
-        <div className="w-1/3 p-6" style={{background: "var(--color-theme-primary-light)"}}>
+        <div className="hidden lg:block lg:w-1/3 p-6 bg-theme-primary-light">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             {/* Header */}
             <div className="text-center mb-12">
@@ -653,37 +653,53 @@ export default function VenueOnboardingPage() {
         </div>
 
         {/* Progress Indicator */}
-        <div className="w-2/3 bg-gray-100 overflow-y-auto p-6" ref={rightRef}>
+        <div className="w-full lg:w-2/3 bg-gray-100 overflow-y-auto p-6" ref={rightRef}>
           <div className="mb-12">
-              <div className="flex items-center justify-between w-full mb-4">
+              <div className="flex flex-wrap lg:flex-nowrap items-center justify-between mb-8">
                 {steps.map((step, index) => (
-                  <div key={index} className="flex items-center">
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 ${
-                      index < currentStep
-                        ? 'bg-green-500 border-green-500 text-white'
-                        : index === currentStep
-                        ? `bg-gradient-to-r ${step.color} border-transparent text-black`
-                        : 'bg-white border-gray-300 text-gray-400'
-                    }`}>
-                      {index < currentStep ? (
-                        <Check className="w-5 h-5" />
-                      ) : (
-                        <step.icon className="w-5 h-5" />
-                      )}
+                  <React.Fragment key={index}>
+                    <div className="flex flex-col items-center min-w-[70px]">
+                      <div
+                        className={`flex items-center justify-center w-10 h-10 rounded-full border-2 shadow transition-all duration-300
+                          ${
+                            index < currentStep
+                              ? 'bg-green-500 border-green-500 text-white'
+                              : index === currentStep
+                              ? `bg-gradient-to-r ${step.color} border-transparent text-black scale-110 ring-2 ring-yellow-200`
+                              : 'bg-white border-gray-300 text-gray-400'
+                          }
+                        `}
+                      >
+                        {index < currentStep ? (
+                          <Check className="w-5 h-5" />
+                        ) : (
+                          React.createElement(step.icon, { className: "w-5 h-5" })
+                        )}
+                      </div>
+                      <span
+                        className={`mt-2 text-xs font-medium text-center transition-all duration-200 ${
+                          index === currentStep
+                            ? 'text-black'
+                            : index < currentStep
+                            ? 'text-green-600'
+                            : 'text-gray-400'
+                        }`}
+                      >
+                        {step.title}
+                      </span>
                     </div>
                     {index < steps.length - 1 && (
-                      <div className={`w-[6rem] h-1 mx-2 transition-all duration-300 ${
-                        index < currentStep ? 'bg-green-500' : 'bg-gray-300'
-                      }`} />
+                      <div
+                        className={`flex-1 h-1 rounded transition-all duration-300 ${
+                          index < currentStep
+                            ? 'bg-green-500'
+                            : index === currentStep
+                            ? 'bg-gradient-to-r from-yellow-300 to-yellow-400'
+                            : 'bg-gray-300'
+                        }`}
+                      />
                     )}
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between text-xs text-gray-600 mb-4">
-                {steps.map((step, index) => (
-                  <span key={index} className="w-24 text-center">
-                    {step.title}
-                  </span>
+                  </React.Fragment>
                 ))}
               </div>
               <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
@@ -697,13 +713,13 @@ export default function VenueOnboardingPage() {
 
                 {/* Step Content */}
                 <div className="p-8 min-h-[400px]">
-                  <div className="transition-all duration-300 ease-in-out">
+                  <div className="p-8">
                     {renderStepContent()}
                   </div>
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+                <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0">
                   <button
                     type="button"
                     onClick={prevStep}

@@ -76,6 +76,10 @@ table td a {
   background-color: var(--color-theme-primary) !important;
   color: white;
 }
+.bg-theme-primary-light{
+  background-color: var(--color-theme-primary-light) !important;
+  color: black;
+}
 
 .bg-accent {
   background-color: var(--color-theme-accent) !important;
@@ -211,19 +215,19 @@ textarea.form-control,
   .btn-primary {
     @apply bg-[#ffe100] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#e6cb00] transition-colors duration-200;
   }
-  
+
   .btn-secondary {
     @apply bg-white text-black border border-gray-300 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors duration-200;
   }
-  
+
   .btn-outline {
     @apply border border-[#ffe100] text-black px-6 py-3 rounded-lg font-medium hover:bg-[#ffe100] transition-colors duration-200;
   }
-  
+
   .card {
     @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
   }
-  
+
   .input-field {
     @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ffe100] focus:border-transparent;
   }

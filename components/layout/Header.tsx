@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Menu, X, User, MapPin, Bell } from 'lucide-react';
 import LoginModal from '../loginModal';
 import SignupModal from "../SignupModal";
+import Image from 'next/image';
+import img from '../../assets/images/logo.png'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,37 +19,37 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <header className="w-full shadow-sm sticky top-0 z-50" style={{ backgroundColor: 'var(--color-theme-primary)' }}>
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-[#ffe100] rounded-lg flex items-center justify-center">
-              <span className="text-black font-bold text-xl">O</span>
-            </div>
-            <span className="text-2xl font-bold text-black">Ofside</span>
-          </Link>
+          <Link href="/" className="flex items-center">
+          <div className=" px-2 py-1 rounded-md">
+            <Image
+              src={img} // Place logo in /public/images/logo.png
+              alt="Offside Logo"
+              width={150}
+              height={40}
+              className="object-contain"
+              priority
+            />
+          </div>
+        </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/venues" className="text-gray-700 hover:text-black transition-colors">
-              Find Venues
-            </Link>
-            <Link href="/how-it-works" className="text-gray-700 hover:text-black transition-colors">
-              How it Works
-            </Link>
-            <Link href="/become-host" className="text-gray-700 hover:text-black transition-colors">
-              Become a Host
-            </Link>
-          </nav>
+          <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-700">
+            <Link href="/venues" className="hover:text-black transition">Find Venues</Link>
+            <Link href="/how-it-works" className="hover:text-black transition">How it Works</Link>
+            <Link href="/become-host" className="hover:text-black transition">Become a Host</Link>
+          </div>
 
           {/* User Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 text-gray-600 hover:text-black transition-colors">
-              <Bell className="w-5 h-5" />
+          <div className="flex items-center space-x-4">
+            <button className="text-gray-600 hover:text-black transition">
+              <Bell size={20} />
             </button>
-
-            <button className="btn btn-primary" onClick={() => setIsLoginModalOpen(true)}>Sign Up/ Login</button>
+            <button className="btn btn-primary px-4 py-2 rounded-md font-semibold hover:brightness-95 transition" onClick={() => setIsLoginModalOpen(true)}>
+              Sign Up/ Login
+            </button>
             <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} onSwitchToSignup={switchToSignup}/>
             <SignupModal isOpen={isSignupModalOpen} onClose={() => setIsSignupModalOpen(false)}/>
           </div>
@@ -59,7 +61,6 @@ export default function Header() {
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-        </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
@@ -85,7 +86,7 @@ export default function Header() {
             </nav>
           </div>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

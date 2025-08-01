@@ -2,17 +2,16 @@
 
 import Link from 'next/link';
 import { Home, ArrowLeft } from 'lucide-react';
+import Image from 'next/image';
+import img from '../assets/images/logo.png'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="text-center max-w-md mx-auto">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="text-center max-w-md mx-auto py-12">
         {/* Logo */}
         <div className="flex items-center justify-center space-x-2 mb-12">
-          <div className="w-16 h-16 bg-[#ffe100] rounded-lg flex items-center justify-center">
-            <span className="text-black font-bold text-3xl">O</span>
-          </div>
-          <span className="text-4xl font-bold text-black">Ofside</span>
+          <Image src={img} alt="Example image" width={120} height={20}/>
         </div>
 
         {/* 404 Illustration */}
