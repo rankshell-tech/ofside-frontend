@@ -655,7 +655,7 @@ export default function VenueOnboardingPage() {
         {/* Progress Indicator */}
         <div className="w-full lg:w-2/3 bg-gray-100 overflow-y-auto p-6" ref={rightRef}>
           <div className="mb-12">
-              <div className="flex flex-wrap lg:flex-nowrap items-center justify-between mb-8">
+              <div className="flex flex-wrap lg:flex-nowrap gap-4 items-center justify-between mb-8">
                 {steps.map((step, index) => (
                   <React.Fragment key={index}>
                     <div className="flex flex-col items-center min-w-[70px]">
@@ -713,54 +713,52 @@ export default function VenueOnboardingPage() {
 
                 {/* Step Content */}
                 <div className="p-8 min-h-[400px]">
-                  <div className="p-8">
                     {renderStepContent()}
-                  </div>
                 </div>
 
                 {/* Navigation Buttons */}
-                <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0">
+                <div className="px-6 py-6 bg-gray-50 border-t border-gray-100 flex flex-row items-center justify-between space-y-0 gap-2">
                   <button
-                    type="button"
-                    onClick={prevStep}
-                    disabled={currentStep === 0}
-                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
-                      currentStep === 0
-                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                    }`}
+                  type="button"
+                  onClick={prevStep}
+                  disabled={currentStep === 0}
+                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                    currentStep === 0
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                  }`}
                   >
-                    <ChevronLeft className="w-4 h-4" />
-                    <span>Back</span>
+                  <ChevronLeft className="w-4 h-4" />
+                  <span>Back</span>
                   </button>
 
-                  <div className="text-sm text-gray-500">
-                    Step {currentStep + 1} of {steps.length}
+                  <div className="text-sm text-gray-500 flex-shrink-0">
+                  Step {currentStep + 1} of {steps.length}
                   </div>
 
                   {currentStep === steps.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={handleSubmit}
-                      className="bg-gradient-to-r from-[#ffe100] to-[#ffed4e] hover:from-[#e6cb00] hover:to-[#e6d43f] text-black font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
-                    >
-                      <span>Submit for Review</span>
-                      <Check className="w-4 h-4" />
-                    </button>
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="bg-gradient-to-r from-[#ffe100] to-[#ffed4e] hover:from-[#e6cb00] hover:to-[#e6d43f] text-black font-bold py-3 px-8 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  >
+                    <span>Submit for Review</span>
+                    <Check className="w-4 h-4" />
+                  </button>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={nextStep}
-                      disabled={!isStepValid(currentStep)}
-                      className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
-                        isStepValid(currentStep)
-                          ? `bg-gradient-to-r ${steps[currentStep].color} text-white hover:shadow-lg transform hover:scale-105`
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
-                    >
-                      <span>Next</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
+                  <button
+                    type="button"
+                    onClick={nextStep}
+                    disabled={!isStepValid(currentStep)}
+                    className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all ${
+                    isStepValid(currentStep)
+                      ? `bg-gradient-to-r ${steps[currentStep].color} text-white hover:shadow-lg transform hover:scale-105`
+                      : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
                   )}
                 </div>
               </div>

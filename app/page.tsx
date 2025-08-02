@@ -5,48 +5,30 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { Search, MapPin, Users, Calendar, Star, ArrowRight, Play, Shield, Clock, Award } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { ChevronRightIcon } from '@heroicons/react/24/solid';
 
 export default function HomePage() {
   const [location, setLocation] = useState('');
   const [sport, setSport] = useState('');
 
   const sports = [
-    { name: 'Football', icon: '⚽', color: 'bg-green-100 text-green-800' },
-    { name: 'Basketball', icon: '🏀', color: 'bg-orange-100 text-orange-800' },
-    { name: 'Tennis', icon: '🎾', color: 'bg-blue-100 text-blue-800' },
-    { name: 'Cricket', icon: '🏏', color: 'bg-red-100 text-red-800' },
-    { name: 'Badminton', icon: '🏸', color: 'bg-purple-100 text-purple-800' },
-    { name: 'Swimming', icon: '🏊', color: 'bg-cyan-100 text-cyan-800' },
+    { name: 'Football', img: require('@/assets/images/football.jpg').default },
+    { name: 'Box cricket', img: require('@/assets/images/box-cricket.png').default },
+    { name: 'Squash', img: require('@/assets/images/squash.png').default },
+    { name: 'Box football', img: require('@/assets/images/box-football.png').default },
+    { name: 'Golf', img: require('@/assets/images/golf.png').default },
+    { name: 'Volleyball', img: require('@/assets/images/volleyball.png').default },
+    { name: 'Hockey', img: require('@/assets/images/hockey.png').default },
+    { name: 'Swimming', img: require('@/assets/images/swimming.png').default },
+    { name: 'Pickleball', img: require('@/assets/images/pickleball.png').default },
+    { name: 'Badminton', img: require('@/assets/images/badminton.png').default },
   ];
 
   const venues = [
-    {
-      id: 1,
-      name: 'SportZone Arena',
-      location: 'Downtown Mumbai',
-      rating: 4.8,
-      price: '₹500/hour',
-      image: 'https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sports: ['Football', 'Cricket']
-    },
-    {
-      id: 2,
-      name: 'Elite Sports Complex',
-      location: 'Bandra West',
-      rating: 4.9,
-      price: '₹750/hour',
-      image: 'https://images.pexels.com/photos/1884574/pexels-photo-1884574.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sports: ['Basketball', 'Tennis']
-    },
-    {
-      id: 3,
-      name: 'Champions Ground',
-      location: 'Andheri East',
-      rating: 4.7,
-      price: '₹400/hour',
-      image: 'https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=400',
-      sports: ['Football', 'Basketball']
-    },
+    { name: 'ABC Sport', img: require('@/assets/images/swimming.png').default },
+    { name: 'XYZ Sport', img: require('@/assets/images/pickleball.png').default },
+    { name: 'ABC Club', img: require('@/assets/images/badminton.png').default },
   ];
 
   const testimonials = [
@@ -73,7 +55,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="relative text-white py-20 overflow-hidden">
         {/* Video Background */}
@@ -85,14 +67,13 @@ export default function HomePage() {
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
             onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => console.log('Video can play')}
             onError={(e) => console.error('Video error:', e)}
           >
             <source src="https://videos.pexels.com/video-files/8940710/8940710-uhd_2560_1440_25fps.mp4" type="video/mp4" />
             <source src="https://videos.pexels.com/video-files/8940710/8940710-hd_1920_1080_25fps.mp4" type="video/mp4" />
             {/* Fallback image if video fails */}
-            <img 
-              src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+            <img
+              src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=1920"
               alt="Sports background"
               className="w-full h-full object-cover"
             />
@@ -109,7 +90,7 @@ export default function HomePage() {
             <p className="text-xl md:text-2xl text-gray-300 mb-12">
               Find and book the perfect sports venue near you in seconds. Play more, worry less.
             </p>
-            
+
             {/* Search Bar */}
             <div className="bg-white rounded-2xl p-4 md:p-6 shadow-2xl max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -146,84 +127,76 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Browse by Sports */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-black mb-4">Browse by Sports</h2>
-            <p className="text-xl text-gray-600">Find venues for your favorite sport</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {sports.map((sport) => (
-              <Link
-                key={sport.name}
-                href={`/venues?sport=${sport.name}`}
-                className="group card hover:shadow-lg transition-all duration-300 text-center cursor-pointer"
-              >
-                <div className="text-4xl mb-4">{sport.icon}</div>
-                <h3 className="font-semibold text-black group-hover:text-[#ffe100] transition-colors">
-                  {sport.name}
-                </h3>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Popular Venues */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center mb-12">
-            <div>
-              <h2 className="text-4xl font-bold text-black mb-4">Popular Venues Near You</h2>
-              <p className="text-xl text-gray-600">Top-rated venues in your area</p>
-            </div>
-            <Link href="/venues" className="btn-outline flex items-center space-x-2">
-              <span>View All</span>
-              <ArrowRight className="w-4 h-4" />
+      <div className="p-4 space-y-6">
+        {/* Choose your sport */}
+        <section className="py-4 border-b border-gray-200">
+          <div className="flex justify-between items-center underline underline-offset-4">
+            <h2 className="text-lg font-bold">Choose your Sport</h2>
+            <Link href="/somepage" className="flex items-center space-x-1 text-black font-semibold hover:underline">
+              <span>more</span>
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-black">
+                <ChevronRightIcon className="w-4 h-4 text-black" />
+              </span>
             </Link>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-5 gap-3 mt-2">
+            {sports.map((sport) => (
+            <div key={sport.name} className="text-center">
+              <div className="aspect-square rounded-xl overflow-hidden shadow-md">
+                <Image src={sport.img} alt={sport.name} width={100} height={100} className="w-full h-full object-cover" />
+              </div>
+              <p className="text-xs mt-1 font-semibold">{sport.name}</p>
+            </div>
+              ))}
+          </div>
+        </section>
+
+        {/* Trending Venues */}
+        <section className="py-4 border-b border-gray-200">
+          <div className="flex justify-between items-center underline underline-offset-4">
+            <h2 className="text-lg font-bold">Trending in the city</h2>
+            <Link href="/somepage" className="flex items-center space-x-1 text-black font-semibold hover:underline">
+              <span>more</span>
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-black">
+                <ChevronRightIcon className="w-4 h-4 text-black" />
+              </span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-3 gap-3 mt-2">
             {venues.map((venue) => (
-              <Link key={venue.id} href={`/venues/${venue.id}`} className="group">
-                <div className="card hover:shadow-xl transition-all duration-300 p-0 overflow-hidden">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={venue.image}
-                      alt={venue.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-medium">
-                      ⭐ {venue.rating}
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-black mb-2 group-hover:text-[#ffe100] transition-colors">
-                      {venue.name}
-                    </h3>
-                    <p className="text-gray-600 mb-3 flex items-center">
-                      <MapPin className="w-4 h-4 mr-1" />
-                      {venue.location}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <div className="flex space-x-2">
-                        {venue.sports.map((sport) => (
-                          <span key={sport} className="bg-gray-100 text-gray-800 px-2 py-1 rounded-md text-xs">
-                            {sport}
-                          </span>
-                        ))}
-                      </div>
-                      <span className="text-lg font-bold text-[#ffe100]">{venue.price}</span>
-                    </div>
-                  </div>
+              <div key={venue.name} className="text-center">
+                <div className="rounded-xl overflow-hidden shadow-md">
+                  <Image src={venue.img} alt={venue.name} width={300} height={200} className="w-full h-full object-cover" />
                 </div>
-              </Link>
+                <p className="text-sm font-semibold p-2">{venue.name}</p>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Top Rated Venues */}
+        <section className="py-4 border-b border-gray-200">
+          <div className="flex justify-between items-center underline underline-offset-4">
+            <h2 className="text-lg font-bold">Top rated Venues</h2>
+            <Link href="/somepage" className="flex items-center space-x-1 text-black font-semibold hover:underline">
+              <span>more</span>
+              <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-black">
+                <ChevronRightIcon className="w-4 h-4 text-black" />
+              </span>
+            </Link>
+          </div>
+          <div className="grid grid-cols-3 gap-3 mt-2">
+            {venues.map((venue) => (
+              <div key={venue.name} className="text-center">
+                <div className="rounded-xl overflow-hidden shadow-md">
+                  <Image src={venue.img} alt={venue.name} width={300} height={200} className="w-full h-full object-cover" />
+                </div>
+                <p className="text-sm font-semibold p-2">{venue.name}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* How it Works */}
       <section className="py-20 bg-gray-50">
@@ -232,7 +205,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-bold text-black mb-4">How It Works</h2>
             <p className="text-xl text-gray-600">Book your perfect venue in 3 simple steps</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="text-center">
               <div className="w-20 h-20 bg-[#ffe100] rounded-full flex items-center justify-center mx-auto mb-6">
@@ -266,7 +239,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-bold text-black mb-4">What Our Players Say</h2>
             <p className="text-xl text-gray-600">Join thousands of happy players</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div key={index} className="card text-center">
